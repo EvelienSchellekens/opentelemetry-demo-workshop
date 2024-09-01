@@ -18,6 +18,8 @@ data:
       debug: {}
       otlp/elastic:
         endpoint: ${env:ELASTIC_APM_ENDPOINT}
+        tls:
+          insecure: true
         compression: none
         headers:
           Authorization: Bearer ${env:ELASTIC_APM_SECRET_TOKEN}
