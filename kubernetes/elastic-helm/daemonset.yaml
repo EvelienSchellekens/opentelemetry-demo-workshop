@@ -12,14 +12,23 @@ presets:
 image:
   repository: docker.elastic.co/beats/elastic-agent
   tag: 8.15.0
+command:
+  name: "/usr/share/elastic-agent/elastic-agent"
+  extraArgs: ["otel"]
+livenessProbe:
+  httpGet:
+    port: 8888
+    path: metrics
+readinessProbe:
+  httpGet:
+    port: 8888
+    path: metrics
 
 securityContext:
   runAsUser: 0
   runAsGroup: 0
 
 extraEnvs:
-  - name: ELASTIC_AGENT_OTEL
-    value: "true"
   - name: ELASTIC_ENDPOINT
     valueFrom:
       secretKeyRef:
