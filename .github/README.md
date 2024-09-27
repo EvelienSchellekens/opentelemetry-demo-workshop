@@ -40,6 +40,9 @@ Additionally, the OpenTelemetry Contrib collector has also been changed to the [
    - `YOUR_APM_SECRET_TOKEN`: your Elastic APM secret token
 1. Execute the following commands to deploy the OpenTelemetry demo to your Kubernetes cluster:
    ```
+   # clone this repository
+   git clone https://github.com/elastic/opentelemetry-demo
+   
    # switch to the kubernetes/elastic-helm directory
    cd kubernetes/elastic-helm
 
@@ -48,9 +51,6 @@ Additionally, the OpenTelemetry Contrib collector has also been changed to the [
 
    # !(when an older helm open-telemetry repo exists) update the open-telemetry helm repo
    helm repo update open-telemetry
-
-   # deploy the configuration for the Elastic OpenTelemetry collector distribution
-   kubectl apply -f configmap-deployment.yaml
 
    # deploy the demo through helm install
    helm install -f deployment.yaml my-otel-demo open-telemetry/opentelemetry-demo
@@ -70,15 +70,12 @@ In order to add Node level metrics collection we can run an additional Otel coll
      --from-literal=elastic_api_key='YOUR_ELASTICSEARCH_API_KEY'
    ```
    Don't forget to replace
-   - `YOUR_ELASTICSEARCH_ENDPOINT`: your Elasticsearch endpoint (example: `1234567.us-west2.gcp.elastic-cloud.com:443`).
+   - `YOUR_ELASTICSEARCH_ENDPOINT`: your Elasticsearch endpoint (*with* `https://` prefix example: `https://1234567.us-west2.gcp.elastic-cloud.com:443`).
    - `YOUR_ELASTICSEARCH_API_KEY`: your Elasticsearch API Key
 
-2. Execute the following command to deploy the OpenTelemetry Collector to your Kubernetes cluster:
+2. Execute the following command to deploy the OpenTelemetry Collector to your Kubernetes cluster, in the same directory `kubernetes/elastic-helm` in this repository.
 
 ```
-# deploy the configuration for the Elastic OpenTelemetry collector distribution
-kubectl apply -f configmap-daemonset.yaml
-
 # deploy the Elastic OpenTelemetry collector distribution through helm install
 helm install otel-daemonset open-telemetry/opentelemetry-collector --values daemonset.yaml
 ```
